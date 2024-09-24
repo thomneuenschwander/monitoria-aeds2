@@ -1,0 +1,7 @@
+*.exe
+*.class
+*.o
+*.swp
+*.sh
+*.in
+*.out
