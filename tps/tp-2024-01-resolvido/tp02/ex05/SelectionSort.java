@@ -4,20 +4,27 @@ import tp02.Character;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+/**
+ * @author Thomas Neuenschwander
+ * @since 2024-10-10
+ * @see https://github.com/thomneuenschwander
+ */
 public class SelectionSort {
     static final String PATH = "../characters.csv";
     static final String INPUT_BREAK = "FIM";
+    static final Map<String, Character> ALL_CHARACTERS = Character.readFromCSV(PATH);
 
-    static final Comparator<Character> BY_NAME = Comparator.comparing(Character::getName);
+    static final Comparator<Character> BY_NAME = Comparator.comparing(Character::name);
 
     public static void sort(Character[] characters) {
         for (int i = 0; i < characters.length - 1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < characters.length; j++) {
-                if (BY_NAME.compare(characters[j], characters[minIndex]) < 0) 
+                if (BY_NAME.compare(characters[j], characters[minIndex]) < 0)
                     minIndex = j;
             }
             swap(characters, i, minIndex);
@@ -31,23 +38,22 @@ public class SelectionSort {
     }
 
     public static void main(String[] args) {
-        var allCharacters = Character.readFromCSV(PATH);
+        try (Scanner sc = new Scanner(System.in)) {
+            List<Character> selectedCharacters = new ArrayList<>();
 
-        Scanner sc = new Scanner(System.in);
-        List<Character> selectedCharacters = new ArrayList<>();
+            processInput(sc, id -> {
+                var character = ALL_CHARACTERS.get(id);
+                if (character != null)
+                    selectedCharacters.add(character);
+            });
 
-        processInput(sc, id -> {
-            var character = allCharacters.stream().filter(c -> c.getId().equals(id)).findFirst();
-            character.ifPresent(selectedCharacters::add);
-        });
+            Character[] selectedCharactersArray = selectedCharacters.stream().toArray(Character[]::new);
+            SelectionSort.sort(selectedCharactersArray);
 
-        Character[] selectedCharactersArray = selectedCharacters.stream().toArray(Character[]::new);
-        SelectionSort.sort(selectedCharactersArray);
+            for (var character : selectedCharactersArray)
+                System.out.println(character);
+        }
 
-        for (var character : selectedCharactersArray) 
-            System.out.println(character);
-            
-        sc.close();
     }
 
     static void processInput(Scanner sc, Consumer<String> inputOperation) {
