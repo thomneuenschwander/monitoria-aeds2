@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Parenthesis Balance I
+ *
+ *  link -> https://judge.beecrowd.com/en/problems/view/1068
+ * 
+ */
+
 int isCorrect(char *str, int size)
 {
     int open = 0, close = 0;
