@@ -1,13 +1,13 @@
 package tp02.ex07;
 
-import tp02.Character;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Consumer;
+
+import tp02.Character;
 
 /**
  * @author Thomas Neuenschwander
@@ -34,18 +34,18 @@ public class InsertionSort {
     }
 
     public static void main(String[] args) {
-        try(Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in)) {
             List<Character> selectedCharacters = new ArrayList<>();
-    
+
             processInput(sc, id -> {
                 var character = ALL_CHARACTERS.get(id);
-                if(character != null)
+                if (character != null)
                     selectedCharacters.add(character);
             });
-    
+
             Character[] selectedCharactersArray = selectedCharacters.stream().toArray(Character[]::new);
             InsertionSort.sort(selectedCharactersArray);
-    
+
             for (var character : selectedCharactersArray)
                 System.out.println(character);
         }

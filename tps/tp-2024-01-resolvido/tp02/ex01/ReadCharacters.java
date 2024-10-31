@@ -1,10 +1,10 @@
 package tp02.ex01;
 
-import tp02.Character;
-
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Consumer;
+
+import tp02.Character;
 
 /**
  * @author Thomas Neuenschwander
@@ -18,10 +18,10 @@ public class ReadCharacters {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
+
         processInput(sc, id -> {
             var character = ALL_CHARACTERS.get(id);
-            if(character != null)
+            if (character != null)
                 System.out.println(character);
         });
 

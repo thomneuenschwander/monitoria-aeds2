@@ -1,6 +1,4 @@
-package tp02.ex09;
-
-import java.util.Comparator;
+package tp02.ex11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,55 +10,48 @@ import tp02.Character;
 
 /**
  * @author Thomas Neuenschwander
- * @since 2024-10-10
+ * @since 2024-11-10
  * @see https://github.com/thomneuenschwander
  */
-public class HeapSort {
+public class CountingSort {
     static final String PATH = "../characters.csv";
     static final String INPUT_BREAK = "FIM";
     static final Map<String, Character> ALL_CHARACTERS = Character.readFromCSV(PATH);
 
-    static final Comparator<Character> BY_HAIR_COLOR_THEN_BY_NAME = Comparator.comparing(Character::hairColour)
-            .thenComparing(Character::name);
+    static final int MAX_CHARACTER_AGE = 140;
+    static final int MIN_YEAR_OF_BIRTH = 1880;
+    static final int MAX_YEAR_OF_BIRTH = MIN_YEAR_OF_BIRTH + MAX_CHARACTER_AGE;
 
     public static void sort(Character[] array) {
-        int n = array.length;
+        int[] count = countFrequencies(array);
 
-        for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(array, n, i);
+        for (int i = 1; i < count.length; i++)
+            count[i] += count[i - 1];
 
-        for (int i = n - 1; i > 0; i--) {
-            Character temp = array[0];
-            array[0] = array[i];
-            array[i] = temp;
+        Character[] sorted = new Character[array.length];
+        for (int i = array.length - 1; i >= 0; i--)
+            sorted[--count[array[i].yearOfBirth() - MIN_YEAR_OF_BIRTH]] = array[i];
 
-            heapify(array, i, 0);
-        }
+        System.arraycopy(sorted, 0, array, 0, array.length);
     }
 
-    static void heapify(Character[] array, int n, int i) {
-        int largest = i;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+    static int[] countFrequencies(Character[] array) {
+        int range = MAX_YEAR_OF_BIRTH - MIN_YEAR_OF_BIRTH + 1;
+        int[] freq = new int[range];
 
-        if (left < n && BY_HAIR_COLOR_THEN_BY_NAME.compare(array[left], array[largest]) > 0)
-            largest = left;
-
-        if (right < n && BY_HAIR_COLOR_THEN_BY_NAME.compare(array[right], array[largest]) > 0)
-            largest = right;
-
-        if (largest != i) {
-            Character swap = array[i];
-            array[i] = array[largest];
-            array[largest] = swap;
-
-            heapify(array, n, largest);
+        for (Character character : array) {
+            int yearKey = character.yearOfBirth() - MIN_YEAR_OF_BIRTH;
+            if (yearKey < 0 || yearKey >= range)
+                throw new IllegalStateException(character.yearOfBirth() + " is out of yearOfBirth range");
+            freq[yearKey]++;
         }
+        return freq;
     }
 
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
             List<Character> selectedCharacters = new ArrayList<>();
+
             processInput(sc, id -> {
                 var character = ALL_CHARACTERS.get(id);
                 if (character != null)
@@ -68,7 +59,7 @@ public class HeapSort {
             });
 
             Character[] selectedCharactersArray = selectedCharacters.stream().toArray(Character[]::new);
-            HeapSort.sort(selectedCharactersArray);
+            CountingSort.sort(selectedCharactersArray);
 
             for (var character : selectedCharactersArray)
                 System.out.println(character);

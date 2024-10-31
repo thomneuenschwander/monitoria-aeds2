@@ -1,13 +1,13 @@
 package tp02.ex03;
 
-import tp02.Character;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
+
+import tp02.Character;
 
 /**
  * @author Thomas Neuenschwander
