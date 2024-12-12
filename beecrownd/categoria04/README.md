@@ -39,6 +39,14 @@ Esta pasta do repositório contém implementações dos problemas propostos na *
 
 ---
 
+### [1023 - Drought](https://judge.beecrowd.com.br/en/problems/view/1023)
+- **Java**: [impl](./Drought.java)
+
+---
+
+### [1236 - Friends Of Hebay](https://judge.beecrowd.com.br/en/problems/view/1236)
+- **C**: [impl](./FriendsOfHabay.c)
+
 ## 📌 Mapping Problems
 
 ### [2482 - Noel's Labels](https://judge.beecrowd.com.br/en/problems/view/2482)
@@ -72,8 +80,18 @@ Esta pasta do repositório contém implementações dos problemas propostos na *
 
 ---
 
-### [1069 - Parenthesis Balance I](https://judge.beecrowd.com.br/en/problems/view/1069)
-- **C**: [Open and closed parenthesis counting](./ParenthesisBalanceI.c)
+### [1211 - Parenthesis Balance I](https://judge.beecrowd.com.br/en/problems/view/1069)
+- **C**: [impl](./ParenthesisBalanceI.c)
+
+---
+
+### [1069 - Economic Phonebook](https://judge.beecrowd.com.br/en/problems/view/1069)
+- **C**: [impl](./EconomicPhonebook.c)
+
+---
+
+### [1167 - Summer Camp](https://judge.beecrowd.com.br/en/problems/view/1167)
+- **C**: [impl](./SummerCamp.c)
 
 ---
 
